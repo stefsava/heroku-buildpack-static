@@ -6,6 +6,7 @@ class NginxConfig
   DEFAULT = {
     root: "public_html/",
     encoding: "UTF-8",
+    client_max_body_size: "50m",
     clean_urls: false,
     https_only: false,
     worker_connections: 512,
@@ -23,6 +24,8 @@ class NginxConfig
     json["port"] ||= ENV["PORT"] || 5000
     json["root"] ||= DEFAULT[:root]
     json["encoding"] ||= DEFAULT[:encoding]
+
+    json["client_max_body_size"] ||= ENV["MAX_UPLOAD_SIZE"] || DEFAULT[:client_max_body_size]
 
     index = 0
     json["proxies"] ||= {}
