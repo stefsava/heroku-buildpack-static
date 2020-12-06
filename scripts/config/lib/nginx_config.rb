@@ -7,6 +7,7 @@ class NginxConfig
     root: "public_html/",
     encoding: "UTF-8",
     canonical_host: false,
+    client_max_body_size: "50m",
     clean_urls: false,
     https_only: false,
     basic_auth: false,
@@ -29,6 +30,7 @@ class NginxConfig
 
     json["canonical_host"] ||= DEFAULT[:canonical_host]
     json["canonical_host"] = NginxConfigUtil.interpolate(json["canonical_host"], ENV) if json["canonical_host"]
+    json["client_max_body_size"] ||= ENV["MAX_UPLOAD_SIZE"] || DEFAULT[:client_max_body_size]
 
     index = 0
     json["proxies"] ||= {}
